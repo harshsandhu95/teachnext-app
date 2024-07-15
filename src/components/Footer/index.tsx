@@ -1,15 +1,21 @@
-import { MailIcon } from "lucide-react";
+import { CopyrightIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-muted">
-      <div className="py-12 min-h-96 container grid grid-cols-1 md:grid-cols-3 grid-flow-row gap-4">
+      <div className="py-12 min-h-64 container grid grid-cols-1 md:grid-cols-3 grid-flow-row gap-4">
         <div className="max-w-prose space-y-2">
-          <span className="text-2xl font-bold">TeachNext</span>
+          <p className="text-2xl font-bold">TeachNext</p>
           <p>
             TeachNext is a AI-powered teaching assistant to help teachers in
             achieving daily tasks.
+          </p>
+          <p className="flex items-center gap-2">
+            <CopyrightIcon size={16} />
+            {currentYear} TeachNext. All rights reserved.
           </p>
         </div>
 
