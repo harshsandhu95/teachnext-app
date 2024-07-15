@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import Menu from "./Menu";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   const navlinks = [
@@ -28,14 +29,26 @@ export default function Header() {
         </div>
 
         <div className="hidden md:block place-self-end self-center">
-          <div className="flex items-center gap-4">
-            <Button asChild>
-              <Link href="/sign-in">Sign in</Link>
-            </Button>
-            <Button asChild variant="secondary">
-              <Link href="/sign-up">Sign up</Link>
-            </Button>
-          </div>
+          <SignedOut>
+            <div className="flex items-center gap-4">
+              <Button asChild>
+                <Link href="/sign-in">Sign in</Link>
+              </Button>
+              <Button asChild variant="secondary">
+                <Link href="/sign-up">Sign up</Link>
+              </Button>
+            </div>
+          </SignedOut>
+
+          <SignedIn>
+            <div className="flex items-center gap-4">
+              <UserButton />
+
+              <Button asChild>
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+            </div>
+          </SignedIn>
         </div>
 
         <div className="md:hidden place-self-end self-center">
