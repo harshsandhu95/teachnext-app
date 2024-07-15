@@ -1,22 +1,12 @@
 import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/Button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/Sheet";
-import { MenuIcon } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import Menu from "./Menu";
 
 export default function Header() {
   const navlinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Features", href: "/features" },
+    { name: "Features", href: "/#features" },
+    { name: "Pricing", href: "/#pricing" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -49,45 +39,7 @@ export default function Header() {
         </div>
 
         <div className="md:hidden place-self-end self-center">
-          <Sheet>
-            <SheetTrigger>
-              <div className={buttonVariants({ size: "icon" })}>
-                <MenuIcon size={16} />
-              </div>
-            </SheetTrigger>
-
-            <SheetContent side="left">
-              <div className="h-full grid grid-rows-[auto_1fr_auto] space-y-8">
-                <SheetHeader>
-                  <SheetTitle>
-                    <span className="text-lg font-bold">TeachNext</span>
-                  </SheetTitle>
-                  <SheetDescription className="sr-only">
-                    Mobile menu
-                  </SheetDescription>
-                </SheetHeader>
-
-                <nav className="flex flex-col gap-4">
-                  {navlinks.map((link, idx) => (
-                    <Link key={idx} href={link.href} className="font-medium">
-                      {link.name}
-                    </Link>
-                  ))}
-                </nav>
-
-                <SheetFooter>
-                  <div className="flex flex-col gap-y-4">
-                    <Button asChild>
-                      <Link href="/sign-in">Sign in</Link>
-                    </Button>
-                    <Button asChild variant="secondary">
-                      <Link href="/sign-up">Sign up</Link>
-                    </Button>
-                  </div>
-                </SheetFooter>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <Menu navlinks={navlinks} />
         </div>
       </div>
     </header>
