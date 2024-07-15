@@ -34,8 +34,8 @@ export default function Features() {
   ];
 
   return (
-    <section className="container py-16">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="features" className="container py-16">
+      <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7">Features</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -55,10 +55,10 @@ export default function Features() {
                   <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
                     <feature.icon aria-hidden="true" size={24} />
                   </div>
-                  {feature.name}
+                  <h3>{feature.name}</h3>
                 </dt>
                 <dd className="mt-2 text-base leading-7">
-                  {feature.description}
+                  <p>{feature.description}</p>
                 </dd>
               </div>
             ))}
