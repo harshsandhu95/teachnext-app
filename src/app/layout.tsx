@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { sans } from "@/lib/fonts";
 import "./globals.css";
+import RootProvider from "@/components/RootProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={sans.variable}>{children}</body>
+      <body className={sans.variable}>
+        <RootProvider>{children}</RootProvider>
+      </body>
     </html>
   );
 }
