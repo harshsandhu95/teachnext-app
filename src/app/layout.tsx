@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import RootProvider from "@/components/RootProvider";
 import { sans } from "@/lib/fonts";
 import "./globals.css";
-import RootProvider from "@/components/RootProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
