@@ -5,7 +5,13 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { LeafIcon, PanelLeftIcon, Settings2Icon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/Sheet";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,6 +34,10 @@ export default function Topbar() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="sm:max-w-xs">
+          <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
+          <SheetDescription className="sr-only">
+            Navigate through the dashboard using this menu
+          </SheetDescription>
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               href="/"
