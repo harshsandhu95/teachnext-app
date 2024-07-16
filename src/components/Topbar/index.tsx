@@ -1,9 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
-import { LeafIcon, PanelLeftIcon, Settings2Icon } from "lucide-react";
+import { PanelLeftIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import {
   Sheet,
@@ -18,18 +19,19 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
 } from "@/components/ui/Breadcrumb";
-import { dashboardlinks } from "@/lib/navigations";
-import { capitalise, cn } from "@/lib/utils";
+import { capitalise } from "@/lib/utils";
+import Navbar from "./Navbar";
 
 export default function Topbar() {
   const pathname = usePathname();
+  const [open, setOpen] = React.useState(false);
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden">
-            <PanelLeftIcon className="h-5 w-5" />
+            <PanelLeftIcon className="size-5" />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
@@ -38,38 +40,7 @@ export default function Topbar() {
           <SheetDescription className="sr-only">
             Navigate through the dashboard using this menu
           </SheetDescription>
-          <nav className="grid gap-6 text-lg font-medium">
-            <Link
-              href="/"
-              className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-            >
-              <LeafIcon className="h-5 w-5 transition-all group-hover:scale-110" />
-              <span className="sr-only">TeachNext</span>
-            </Link>
-            {dashboardlinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={cn([
-                  "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
-                  pathname === link.href ? "text-foreground" : "",
-                ])}
-              >
-                <link.icon className="h-5 w-5" />
-                {link.label}
-              </Link>
-            ))}
-            <Link
-              href="/settings"
-              className={cn([
-                "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
-                pathname === "/settings" ? "text-foreground" : "",
-              ])}
-            >
-              <Settings2Icon className="h-5 w-5" />
-              Settings
-            </Link>
-          </nav>
+          <Navbar setOpen={setOpen} />
         </SheetContent>
       </Sheet>
       <Breadcrumb className="hidden md:flex">

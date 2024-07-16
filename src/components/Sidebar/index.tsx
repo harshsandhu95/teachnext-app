@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/Tooltip";
 import { cn } from "@/lib/utils";
 import { dashboardlinks } from "@/lib/navigations";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -34,7 +35,7 @@ export default function Sidebar() {
                   pathname === link.href ? "text-foreground" : "",
                 ])}
               >
-                <link.icon className="h-5 w-5" />
+                <link.icon className="size-5" />
                 <span className="sr-only">{link.label}</span>
               </Link>
             </TooltipTrigger>
@@ -44,6 +45,7 @@ export default function Sidebar() {
       </nav>
 
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+        <ThemeSwitch />
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
@@ -53,7 +55,7 @@ export default function Sidebar() {
                 pathname === "/settings" ? "text-foreground" : "",
               ])}
             >
-              <Settings2Icon className="h-5 w-5" />
+              <Settings2Icon className="size-5" />
               <span className="sr-only">Settings</span>
             </Link>
           </TooltipTrigger>
