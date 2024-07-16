@@ -13,12 +13,12 @@ export default function CreateClass() {
       <CardHeader className="pb-3">
         <CardTitle>Your Classes</CardTitle>
         <CardDescription className="max-w-lg text-balance leading-relaxed">
-          Introducing Our Dynamic Orders Dashboard for Seamless Management and
-          Insightful Analysis.
+          Manage students based on the classes you create. You can create a new
+          class by clicking the button below.
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button>Create New Order</Button>
+        <Button>Create New Class</Button>
       </CardFooter>
     </Card>
   );
