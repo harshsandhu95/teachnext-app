@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { MenuIcon } from "lucide-react";
+import { LayoutDashboardIcon, LogOutIcon, MenuIcon } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/Sheet";
 import { Button, buttonVariants } from "@/components/ui/Button";
+import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
 
 interface Props {
   navlinks: { name: string; href: string }[];
@@ -41,7 +42,6 @@ export default function Menu({ navlinks }: Props) {
           <nav className="flex flex-col gap-4">
             {navlinks.map((link, idx) => (
               <Link
-                legacyBehavior
                 key={idx}
                 href={link.href}
                 onClick={() => setOpen(false)}
@@ -53,14 +53,33 @@ export default function Menu({ navlinks }: Props) {
           </nav>
 
           <SheetFooter>
-            <div className="flex flex-col gap-y-4">
-              <Button asChild>
-                <Link href="/sign-in">Sign in</Link>
-              </Button>
-              <Button asChild variant="secondary">
-                <Link href="/sign-up">Sign up</Link>
-              </Button>
-            </div>
+            <SignedIn>
+              <div className="flex flex-col gap-y-4">
+                <Button asChild>
+                  <Link href="/dashboard">
+                    <LayoutDashboardIcon size={16} />
+                    Dashboard
+                  </Link>
+                </Button>
+                <SignOutButton>
+                  <Button variant="secondary">
+                    <LogOutIcon size={16} />
+                    Sign out
+                  </Button>
+                </SignOutButton>
+              </div>
+            </SignedIn>
+
+            <SignedOut>
+              <div className="flex flex-col gap-y-4">
+                <Button asChild>
+                  <Link href="/sign-in">Sign in</Link>
+                </Button>
+                <Button asChild variant="secondary">
+                  <Link href="/sign-up">Sign up</Link>
+                </Button>
+              </div>
+            </SignedOut>
           </SheetFooter>
         </div>
       </SheetContent>
