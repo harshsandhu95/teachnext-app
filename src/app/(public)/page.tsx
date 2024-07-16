@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <section className="py-16 container max-w-5xl flex flex-col items-center justify-center gap-y-4 text-center">
       <h1 className="text-4xl md:text-7xl font-bold">
-        Your <span className="text-primary">AI-powered teaching assistant</span>{" "}
+        Your <span className="text-primary">AI-Powered teaching assistant</span>{" "}
         to help you in your everyday tasks.
       </h1>
 
