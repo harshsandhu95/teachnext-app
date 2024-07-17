@@ -14,7 +14,7 @@ import {
   setTodos,
   toggleTodo,
 } from "@/lib/features/todo/todoSlice";
-import { todo } from "@/app/types";
+import { Prisma } from "@prisma/client";
 
 export default function TodoList() {
   const todos = useAppSelector((state) => state.todo);
@@ -22,13 +22,13 @@ export default function TodoList() {
 
   const isTodosEmpty = React.useMemo(() => todos.length === 0, [todos]);
 
-  async function handleCheckedChange(todo: todo) {
+  async function handleCheckedChange(todo: Prisma.todoUpdateInput) {
     const updatedTodo = { ...todo, completed: !todo.completed };
 
     const response = await updateTodo(updatedTodo);
 
     if (response) {
-      dispatch(toggleTodo(todo.id));
+      dispatch(toggleTodo(todo.id as string));
     }
   }
 
@@ -83,7 +83,7 @@ export default function TodoList() {
                   <Button
                     size="icon"
                     variant="ghost"
-                    onClick={() => handleRemove(todo.id)}
+                    onClick={() => handleRemove(todo.id as string)}
                     className="invisible group-hover:visible"
                   >
                     <Trash2Icon size={16} />
@@ -91,7 +91,10 @@ export default function TodoList() {
                 </div>
               </ContextMenuTrigger>
 
-              <TodoContextMenu id={todo.id} handleRemove={handleRemove} />
+              <TodoContextMenu
+                id={todo.id as string}
+                handleRemove={handleRemove}
+              />
             </ContextMenu>
           ))}
         </div>

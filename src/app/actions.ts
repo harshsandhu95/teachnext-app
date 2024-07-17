@@ -2,7 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/db";
-import { todo } from "@/app/types";
+import { Prisma } from "@prisma/client";
 
 export async function fetchTodos() {
   const { userId } = auth();
@@ -32,14 +32,16 @@ export async function createTodo(text: string) {
   }
 }
 
-export async function updateTodo(item: todo) {
+export async function updateTodo(
+  item: Prisma.XOR<Prisma.todoUpdateInput, Prisma.todoUncheckedUpdateInput>,
+) {
   const { userId } = auth();
 
   if (userId) {
     return await prisma.todo.update({
       data: item,
       where: {
-        id: item.id,
+        id: item.id as string,
       },
     });
   }

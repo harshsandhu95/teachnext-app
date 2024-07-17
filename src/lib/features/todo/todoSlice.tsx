@@ -1,16 +1,16 @@
+import { Prisma } from "@prisma/client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { todo } from "@/app/types";
 
-const initialState: todo[] = [];
+const initialState: Prisma.todoCreateInput[] = [];
 
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
-    setTodos: (state, action: PayloadAction<todo[]>) => {
+    setTodos: (state, action: PayloadAction<Prisma.todoCreateInput[]>) => {
       return action.payload;
     },
-    addTodo: (state, action: PayloadAction<todo>) => {
+    addTodo: (state, action: PayloadAction<Prisma.todoCreateInput>) => {
       state.push(action.payload);
     },
     toggleTodo: (state, action: PayloadAction<string>) => {
