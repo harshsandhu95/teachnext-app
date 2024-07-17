@@ -1,9 +1,9 @@
+import { Trash2Icon } from "lucide-react";
 import {
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuShortcut,
 } from "@/components/ui/ContextMenu";
-import { Trash2Icon } from "lucide-react";
 
 interface Props {
   id: string;

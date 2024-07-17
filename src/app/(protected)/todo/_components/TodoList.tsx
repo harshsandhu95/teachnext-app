@@ -1,18 +1,20 @@
 "use client";
 
+import React from "react";
+import { Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuTrigger,
-} from "@/components/ui/ContextMenu";
-import { removeTodo, toggleTodo } from "@/lib/features/todo/todoSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks/useRedux";
+import { ContextMenu, ContextMenuTrigger } from "@/components/ui/ContextMenu";
 import { cn } from "@/lib/utils";
-import { Trash2Icon } from "lucide-react";
-import React from "react";
 import TodoContextMenu from "./TodoContextMenu";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/useRedux";
+import { deleteTodoById, fetchTodos, updateTodo } from "@/app/actions";
+import {
+  removeTodo,
+  setTodos,
+  toggleTodo,
+} from "@/lib/features/todo/todoSlice";
+import { todo } from "@/app/types";
 
 export default function TodoList() {
   const todos = useAppSelector((state) => state.todo);
@@ -20,13 +22,34 @@ export default function TodoList() {
 
   const isTodosEmpty = React.useMemo(() => todos.length === 0, [todos]);
 
-  function handleCheckedChange(id: string) {
-    dispatch(toggleTodo(id));
+  async function handleCheckedChange(todo: todo) {
+    const updatedTodo = { ...todo, completed: !todo.completed };
+
+    const response = await updateTodo(updatedTodo);
+
+    if (response) {
+      dispatch(toggleTodo(todo.id));
+    }
   }
 
-  function handleRemove(id: string) {
-    dispatch(removeTodo(id));
+  async function handleRemove(id: string) {
+    const response = await deleteTodoById(id);
+
+    if (response) {
+      dispatch(removeTodo(id));
+    }
   }
+
+  React.useEffect(() => {
+    async function fetch() {
+      const data = await fetchTodos();
+      dispatch(setTodos(data));
+    }
+
+    return () => {
+      fetch();
+    };
+  }, [dispatch]);
 
   return (
     <div className="py-4 px-8 h-full max-h-96 flex flex-1 items-center justify-center bg-muted rounded-lg border border-dashed shadow-sm overflow-y-auto">
@@ -47,7 +70,7 @@ export default function TodoList() {
                 <div className="group px-4 py-2 flex-1 flex items-center gap-4 hover:bg-background rounded-lg">
                   <Checkbox
                     checked={todo.completed}
-                    onCheckedChange={() => handleCheckedChange(todo.id)}
+                    onCheckedChange={() => handleCheckedChange(todo)}
                   />
                   <p
                     className={cn([
