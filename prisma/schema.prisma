@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../src/app/types"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_DIRECT_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model todo {
+  user_id    String   @default(dbgenerated("requesting_user_id()"))
+  text       String?
+  completed  Boolean  @default(false)
+  deleted    Boolean  @default(false)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  id         String   @id(map: "todos_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
