@@ -6,6 +6,10 @@ export const makeStore = () => {
     reducer: {
       todo: todoReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   });
 };
 
